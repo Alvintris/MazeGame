@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Move();
     }
@@ -25,6 +25,5 @@ public class Player : MonoBehaviour
         direction.x = Input.GetAxisRaw("Horizontal");
         direction.y = Input.GetAxisRaw("Vertical");
         player_rb.velocity = direction * Time.deltaTime * moveSpeed;
-
     }
 }
