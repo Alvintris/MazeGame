@@ -2,50 +2,60 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private Canvas mainMenuUI;
-    [SerializeField] private Canvas finishGame;
+    private Vector3 startPos;
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject pauseMenu;
+    public static GameObject victoryMenu;
 
-    private Vector3 startPosition;
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        startPosition = player.transform.position;
-        mainMenuUI.enabled = true;
-        finishGame.enabled = false;
+        //Get GameObject
+        victoryMenu = GameObject.Find("Victory Panel");
+
+        //Make game not pause
+        Time.timeScale = 1;
+
+        //Turn off menu screen
+        pauseMenu.SetActive(false);
+        victoryMenu.SetActive(false);
+
+        //Take player start position
+        startPos = player.transform.position;
     }
 
     private void Update()
     {
+        PauseButton();
+    }
+
+    public void PauseButton()
+    {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Exit();
+            if (pauseMenu.activeInHierarchy == false)
+            {
+                Time.timeScale = 0;
+                pauseMenu.SetActive(true);
+            }
+            else
+            {
+                Time.timeScale = 1;
+                pauseMenu.SetActive(false);
+            }
         }
     }
 
-    public void PlayMenu()
+    public void NextButton(string sceneName)
     {
-        mainMenuUI.enabled = false;
-        player.transform.position = startPosition;
+        SceneManager.LoadScene(sceneName);
     }
 
-    public void Exit()
+    public void BackButton(string sceneName)
     {
-        Application.Quit();
-    }
-
-    public void Back()
-    {
-        finishGame.enabled = false;
-        mainMenuUI.enabled = true;
-    }
-
-    public void FinishPanel()
-    {
-        finishGame.enabled = true;
+        SceneManager.LoadScene(sceneName);
     }
 }

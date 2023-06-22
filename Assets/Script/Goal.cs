@@ -6,6 +6,7 @@ public class Goal : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        GameObject.Find("GameManager").GetComponent<GameManager>().FinishPanel();
+        Time.timeScale = 0;
+        GameManager.victoryMenu.SetActive(true);
     }
 }
