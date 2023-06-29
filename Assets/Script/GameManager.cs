@@ -6,13 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private Vector3 startPos;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject pauseMenu;
     public static GameObject victoryMenu;
 
     private void Start()
     {
+        Screen.SetResolution(800, 800, false);
+
         //Get GameObject
         victoryMenu = GameObject.Find("Victory Panel");
 
@@ -22,9 +23,6 @@ public class GameManager : MonoBehaviour
         //Turn off menu screen
         pauseMenu.SetActive(false);
         victoryMenu.SetActive(false);
-
-        //Take player start position
-        startPos = player.transform.position;
     }
 
     private void Update()
